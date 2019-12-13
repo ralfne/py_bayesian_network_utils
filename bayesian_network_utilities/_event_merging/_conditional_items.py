@@ -26,18 +26,19 @@ class _ConditionalItems(object):
 
     def get_is_conditional(self):
         if len(self._items) == 0: return None
-        for item in self._items:
-            if self._is_conditional is None:
-                self._is_conditional = item.get_is_conditional()
-            else:
-                if self._is_conditional != item.get_is_conditional():
-                    raise ValueError('Inconsistency; conditional and non-conditional items mixed')
+        self._is_conditional = self._items[0].get_is_conditional()
+        # for item in self._items:
+        #     if self._is_conditional is None:
+        #         self._is_conditional = item.get_is_conditional()
+        #     else:
+        #         if self._is_conditional != item.get_is_conditional():
+        #             raise ValueError('Inconsistency; conditional and non-conditional items mixed')
         return self._is_conditional
 
     def add_item(self, item):
         self._items.append(item)
-        if item.get_is_conditional() != self.get_is_conditional():
-            raise ValueError('Inconsistency; conditional and non-conditional items mixed')
+        # if item.get_is_conditional() != self.get_is_conditional():
+        #     raise ValueError('Inconsistency; conditional and non-conditional items mixed')
 
     def __iter__(self):
         return self._items.__iter__()
@@ -54,7 +55,7 @@ class _ConditionalItems(object):
                 self.add_item(value)
 
     def create_merged_conditional_item(self, event_merge_def):
-        if self._is_conditional:
+        if self.get_is_conditional():
             out = self._create_merged_conditional_item(event_merge_def)
         else:
             out = self._create_merged_non_conditional_item(event_merge_def)
@@ -113,7 +114,7 @@ class _ConditionalItems(object):
         return out
 
     def export_probabilities(self, parents=None):
-        if self._is_conditional:
+        if self.get_is_conditional():
             probs = []
             for item in self._items:
                 probs.append(item.export_probabilities())

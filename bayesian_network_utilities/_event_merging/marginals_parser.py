@@ -2,7 +2,7 @@ from pomegranate.distributions.ConditionalProbabilityTable import ConditionalPro
 from pomegranate.distributions.DiscreteDistribution import DiscreteDistribution
 
 
-class _MarginalsParser(object):
+class MarginalsParser(object):
     def __init__(self, pomgranate_bayesian_network):
         self._pomgranate_bayesian_network = pomgranate_bayesian_network
         self._items = {}

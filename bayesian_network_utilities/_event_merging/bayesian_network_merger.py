@@ -7,7 +7,7 @@ from bayesian_network_utilities._event_merging._state_partitions import _StatePa
 from bayesian_network_utilities.api.bayesian_network_utils import BayesianNetworkUtils
 
 
-class _BayesianNetworkMerger:
+class BayesianNetworkMerger:
     def __init__(self, distribution_merge_definitions):
         self._distribution_merge_defs = distribution_merge_definitions
         self._bayesian_network = self._distribution_merge_defs.get_bayesian_network()
