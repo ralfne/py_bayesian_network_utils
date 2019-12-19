@@ -12,7 +12,7 @@ class DistributionEventMergeDefinitions(object):
     ERR_ONLY_ONE_MERGE_DEF_ALLOWED_MSG = 'Unspecified events allowed; therefor only one EventMergeDefinition is allowed'
     ERR_NETWORK_HAS_DUPLICATED_EVENT_NAMES = 'Assumption violation: network contains duplicated events (possibly across states)'
 
-    def __init__(self, root_state_name, bayesian_network, allow_unspecified_events=False):
+    def __init__(self, root_state_name, bayesian_network, allow_unspecified_events=False, assert_merge_definitions=False):
         if not isinstance(bayesian_network, pg.BayesianNetwork):
             raise NotImplementedError()
         unique = BayesianNetworkUtils.all_event_names_are_unique(bayesian_network)
@@ -21,6 +21,7 @@ class DistributionEventMergeDefinitions(object):
         self._allow_unspecified_events = allow_unspecified_events
         self._items = []
         self._bayesian_network = bayesian_network
+        self._assert_merge_definitions = assert_merge_definitions
 
     def _assert_merge_defs(self):
         if self._allow_unspecified_events:
@@ -77,7 +78,7 @@ class DistributionEventMergeDefinitions(object):
     def set_merge_definitions(self, merge_definitions):
         self._items = []
         self._items.extend(merge_definitions)
-        self._assert_merge_defs()
+        if self._assert_merge_definitions: self._assert_merge_defs()
 
     def get_events(self):
         out = []

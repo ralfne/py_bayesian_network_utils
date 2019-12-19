@@ -50,18 +50,27 @@ class BayesianNetworkUtils(object):
 
     @staticmethod
     def _assert_conditional_probability_table_structures_equality(state1, state2):
+        # params1 = state1
+        # params2 = state2
         params1 = state1.distribution.parameters[0]
         params2 = state2.distribution.parameters[0]
         if len(params1) != len(params2): raise AssertionError("Number of probabilities for '%s' and '%s' not equal"
                                                               % (state1.name, state2.name) )
-        for item1, item2 in zip(params1, params2):
-            if len(item1) != len(item2): raise AssertionError("Number of conditions for '%s' and '%s' not equal"
-                                                              % (state1.name, state2.name))
-            for i in range(len(item1)-1):
-                v1 = item1[i]
-                v2 = item2[i]
-                if v1 != v2: raise AssertionError("Conditions for '%s' and '%s' not equal"
-                                                  % (state1.name, state2.name))
+        params1 = BayesianNetworkUtils._create_conditional_probability_dict(params1)
+        params2 = BayesianNetworkUtils._create_conditional_probability_dict(params2)
+        for key in params1.keys():
+            if not params2.has_key(key):
+                raise AssertionError("Conditions for '%s' and '%s' not equal" % (state1.name, state2.name))
+
+    @staticmethod
+    def _create_conditional_probability_dict(items):
+        out = {}
+        for item in items:
+            key = ''
+            for i in item[0:-1]:
+                key += str(i) + '_'
+            out[key] = key
+        return out
 
     @staticmethod
     def get_state(bayesian_network, name):
@@ -91,3 +100,14 @@ class BayesianNetworkUtils(object):
                         events[key] = key
             return True
         else: raise NotImplementedError()
+#
+# state1=[]
+# state1.append([1,2,3,4])
+# state1.append([6,2,3,4])
+# state1.append([3,8,3,4])
+# state2=[]
+# state2.append([1,2,3,4])
+# state2.append([3,8,3,4])
+# state2.append([6,2,3,4])
+#
+# BayesianNetworkUtils._assert_conditional_probability_table_structures_equality(state1, state2)

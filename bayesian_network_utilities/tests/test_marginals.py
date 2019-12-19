@@ -20,7 +20,7 @@ def test_marginals_3__merge_v_alleles(bayesian_network_1):
     wrapper = BayesianNetworkWrapper(bayesian_network_1)
     merge_def1 = EventMergeDefinition('V1')
     merge_def1.extend(['V1*01', 'V1*02', 'V1*03'])
-    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True)
+    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True, assert_merge_definitions=True)
     merge_defs.set_merge_definitions([merge_def1])
     merged_network = wrapper.create_network_with_merged_events(merge_defs)
     wrapper = BayesianNetworkWrapper(merged_network)
@@ -34,7 +34,7 @@ def test_marginals_4__merge_v_alleles(bayesian_network_1):
     wrapper = BayesianNetworkWrapper(bayesian_network_1)
     merge_def1 = EventMergeDefinition('V1')
     merge_def1.extend(['V1*01', 'V1*02', 'V1*03'])
-    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True)
+    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True, assert_merge_definitions=True)
     merge_defs.set_merge_definitions([merge_def1])
     merged_network = wrapper.create_network_with_merged_events(merge_defs)
     wrapper = BayesianNetworkWrapper(merged_network)
@@ -48,7 +48,7 @@ def test_marginals_5__merge_v_alleles(bayesian_network_1):
     wrapper = BayesianNetworkWrapper(bayesian_network_1)
     merge_def1 = EventMergeDefinition('V1')
     merge_def1.extend(['V1*01', 'V1*02', 'V1*03'])
-    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True)
+    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True, assert_merge_definitions=True)
     merge_defs.set_merge_definitions([merge_def1])
     merged_network = wrapper.create_network_with_merged_events(merge_defs)
     wrapper = BayesianNetworkWrapper(merged_network)
@@ -62,7 +62,7 @@ def test_marginals_6__merge_v_alleles(bayesian_network_1):
     wrapper = BayesianNetworkWrapper(bayesian_network_1)
     merge_def1 = EventMergeDefinition('V1')
     merge_def1.extend(['V1*01', 'V1*02', 'V1*03'])
-    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True)
+    merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_1, allow_unspecified_events=True, assert_merge_definitions=True)
     merge_defs.set_merge_definitions([merge_def1])
     merged_network = wrapper.create_network_with_merged_events(merge_defs)
     wrapper = BayesianNetworkWrapper(merged_network)
@@ -73,66 +73,16 @@ def test_marginals_6__merge_v_alleles(bayesian_network_1):
     tot = margs[margs.keys()[1]].loc[:, 'p'].sum()
     assert utilities.almost_equal(tot, 2.0, 0.0001)
 
-# def test_marginals_4__merge_j_alleles(bayesian_network_1):
-#     wrapper = BayesianNetworkWrapper(bayesian_network_1)
-#     merge_def1 = EventMergeDefinition('J1')
-#     merge_def1.extend(['J1*01', 'J1*02'])
-#     merge_defs = DistributionEventMergeDefinitions('j_gene', bayesian_network_1, allow_unspecified_events=True)
-#     merge_defs.set_merge_definitions([merge_def1])
-#     merged_network = wrapper.create_network_with_merged_events(merge_defs)
-#     wrapper = BayesianNetworkWrapper(merged_network)
-#     margs = wrapper.get_marginals('j_gene')
-#     assert len(margs) == 2
-#     assert utilities.almost_equal(margs.get('J1'), 0.77, 0.001)
-#     assert utilities.almost_equal(margs.get('J2*01'), 0.23, 0.001)
-#
-#
-# def test_marginals_5__merge_v_alleles(bayesian_network_2):
-#     wrapper = BayesianNetworkWrapper(bayesian_network_2)
-#     merge_def1 = EventMergeDefinition('V1')
-#     merge_def1.extend(['V1*01', 'V1*02', 'V1*03'])
-#     merge_defs = DistributionEventMergeDefinitions('v_gene', bayesian_network_2, allow_unspecified_events=True)
-#     merge_defs.set_merge_definitions([merge_def1])
-#     merged_network = wrapper.create_network_with_merged_events(merge_defs)
-#     wrapper = BayesianNetworkWrapper(merged_network)
-#     margs = wrapper.get_marginals('v_gene')
-#     assert len(margs) == 2
-#     assert utilities.almost_equal(margs.get('V1'), 0.6, 0.001)
-#     assert utilities.almost_equal(margs.get('V2*01'), 0.4, 0.001)
-#
-# def test_marginals_6__merge_j_alleles(bayesian_network_2):
-#     wrapper = BayesianNetworkWrapper(bayesian_network_2)
-#     merge_def1 = EventMergeDefinition('J1')
-#     merge_def1.extend(['J1*01', 'J1*02'])
-#     merge_defs = DistributionEventMergeDefinitions('j_gene', bayesian_network_2, allow_unspecified_events=True)
-#     merge_defs.set_merge_definitions([merge_def1])
-#     merged_network = wrapper.create_network_with_merged_events(merge_defs)
-#     wrapper = BayesianNetworkWrapper(merged_network)
-#     margs = wrapper.get_marginals('j_gene')
-#     assert len(margs) == 2
-#     assert utilities.almost_equal(margs.get('J1'), 0.734, 0.001)
-#     assert utilities.almost_equal(margs.get('J2*01'), 0.266, 0.001)
-#
-# def test_marginals_7__merge_j_alleles(bayesian_network_2):
-#     wrapper = BayesianNetworkWrapper(bayesian_network_2)
-#     merge_def1 = EventMergeDefinition('J1')
-#     merge_def1.extend(['J1*01', 'J1*02', 'J2*01'])
-#     merge_defs = DistributionEventMergeDefinitions('j_gene', bayesian_network_2, allow_unspecified_events=True)
-#     merge_defs.set_merge_definitions([merge_def1])
-#     merged_network = wrapper.create_network_with_merged_events(merge_defs)
-#     wrapper = BayesianNetworkWrapper(merged_network)
-#     margs = wrapper.get_marginals('j_gene')
-#     assert len(margs) == 1
-#     assert utilities.almost_equal(margs.get('J1'), 1.0, 0.001)
-#
-# def test_marginals_8__merge_x_alleles(bayesian_network_2):
-#     wrapper = BayesianNetworkWrapper(bayesian_network_2)
-#     merge_def1 = EventMergeDefinition('X12')
-#     merge_def1.extend(['X1', 'X2'])
-#     merge_defs = DistributionEventMergeDefinitions('x_gene', bayesian_network_2, allow_unspecified_events=True)
-#     merge_defs.set_merge_definitions([merge_def1])
-#     merged_network = wrapper.create_network_with_merged_events(merge_defs)
-#     wrapper = BayesianNetworkWrapper(merged_network)
-#     margs = wrapper.get_marginals('x_gene')
-#     assert len(margs) == 1
-#     assert utilities.almost_equal(margs.get('X12'), 1.0, 0.001)
+
+def test_marginals_7__merge_all_alleles(bayesian_network_3):
+    wrapper = BayesianNetworkWrapper(bayesian_network_3)
+    merge_def1 = EventMergeDefinition('V1')
+    merge_def1.extend(['V1*01', 'V1*02'])
+    merge_defs = DistributionEventMergeDefinitions('v_gene', wrapper.get_network(), allow_unspecified_events=True,
+                                                   assert_merge_definitions=True)
+    merge_defs.set_merge_definitions([merge_def1])
+    merged_network = wrapper.create_network_with_merged_events(merge_defs)
+    assert (merged_network is not None)
+    wrapper = BayesianNetworkWrapper(merged_network)
+    margs = wrapper.get_probabilities(statename=None, probability_type=ProbabilityType.Conditional)
+    assert len(margs) == 7

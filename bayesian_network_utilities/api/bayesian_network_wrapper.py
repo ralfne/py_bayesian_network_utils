@@ -16,11 +16,14 @@ class ProbabilityType(Enum):
 
 
 class BayesianNetworkWrapper(object):
-    def __init__(self, pomegranate_bayesian_network):
+    def __init__(self, pomegranate_bayesian_network, enable_caching=True):
         if not isinstance(pomegranate_bayesian_network, pg.BayesianNetwork):
             raise NotImplementedError()
         self._network = pomegranate_bayesian_network
         self._marginals_parser = MarginalsParser(self._network)
+        self._cache = None
+        if enable_caching:
+            self._cache = {}
 
     def get_network(self):
         return self._network
@@ -38,6 +41,20 @@ class BayesianNetworkWrapper(object):
         return out
 
     def get_probabilities(self, statename=None, probability_type=ProbabilityType.Marginal):
+        if self._cache is None:
+            out = self._create_probabilities(statename, probability_type)
+        else:
+            key = self._get_probability_key(statename, probability_type)
+            out = self._cache.get(key, None)
+            if out is None:
+                out = self._create_probabilities(statename, probability_type)
+                self._cache[key] = out
+        return out
+
+    def _get_probability_key(self, statename=None, probability_type=ProbabilityType.Marginal):
+        return str(statename) + '_' + str(probability_type)
+
+    def _create_probabilities(self, statename=None, probability_type=ProbabilityType.Marginal):
         out = {}
         if statename is None:
             states = BayesianNetworkUtils.get_statenames(self._network)
