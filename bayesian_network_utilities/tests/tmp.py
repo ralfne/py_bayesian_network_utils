@@ -7,6 +7,21 @@
 # from bayesian_network_utilities.api.distribution_event_merge_definitions import DistributionEventMergeDefinitions
 # from bayesian_network_utilities.api.event_merge_definition import EventMergeDefinition
 #
+# def bayesian_network_0():
+#     v_gene = DiscreteDistribution({'V1': 0.1, 'V2': 0.5, 'V3': 0.3, 'V4': 0.1})
+#     j_gene = ConditionalProbabilityTable([['V1', 'J1', 0.1], ['V1', 'J2', 0.5], ['V1', 'J3', 0.4],
+#                                           ['V2', 'J1', 0.4], ['V2', 'J2', 0.2], ['V2', 'J3', 0.4],
+#                                           ['V3', 'J1', 0.4], ['V3', 'J2', 0.6], ['V3', 'J3', 0.0],
+#                                           ['V4', 'J1', 0.2], ['V4', 'J2', 0.3], ['V4', 'J3', 0.5]],
+#                                         [v_gene])
+#     v_gene_node = Node(v_gene, name="v_gene")
+#     j_gene_node = Node(j_gene, name="j_gene")
+#     out = BayesianNetwork("VDJ")
+#     out.add_states(v_gene_node, j_gene_node)
+#     out.add_edge(v_gene_node, j_gene_node)
+#     out.bake()
+#     return out
+#
 #
 # def bayesian_network_3():
 #     v_gene = DiscreteDistribution({'V1*01': 0.3, 'V1*02': 0.1, 'V2*01': 0.6})
@@ -56,7 +71,11 @@
 #     out.bake()
 #     return out
 #
-# bn = bayesian_network_3()
+# bn = bayesian_network_0()
+# all_marginals = bn.marginal()
+# print (all_marginals)
+# exit(-1)
+#
 #
 # merge_def1 = EventMergeDefinition('V1')
 # merge_def1.extend(['V1*01', 'V1*02'])
