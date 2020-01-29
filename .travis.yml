@@ -12,7 +12,7 @@ install:
   - pip install pandas
 
 script:
-  - pytest --verbose /bayesian_network_utilities/tests/bayesian_networks.py
+  - pytest --verbose bayesian_network_utilities/tests/bayesian_networks.py
 
 notifications:
   email: false
