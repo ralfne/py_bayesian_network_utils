@@ -13,6 +13,8 @@ install:
 
 script:
   - pytest --verbose bayesian_network_utilities/tests/test_comparisons.py
+  - pytest --verbose bayesian_network_utilities/tests/test_marginals.py
+  - pytest --verbose bayesian_network_utilities/tests/test_merge_definitions.py
 
 notifications:
   email: false
