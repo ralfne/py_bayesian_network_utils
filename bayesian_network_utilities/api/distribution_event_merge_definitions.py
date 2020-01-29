@@ -1,6 +1,5 @@
-from pomegranate.distributions.ConditionalProbabilityTable import ConditionalProbabilityTable
-from pomegranate.distributions.DiscreteDistribution import DiscreteDistribution
 import pomegranate as pg
+from pomegranate import ConditionalProbabilityTable, DiscreteDistribution
 from bayesian_network_utils import BayesianNetworkUtils
 
 

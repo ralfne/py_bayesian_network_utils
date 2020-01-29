@@ -1,6 +1,4 @@
-from pomegranate.distributions.ConditionalProbabilityTable import ConditionalProbabilityTable
-from pomegranate.distributions.DiscreteDistribution import DiscreteDistribution
-
+from pomegranate import DiscreteDistribution, ConditionalProbabilityTable
 
 class MarginalsParser(object):
     def __init__(self, pomgranate_bayesian_network):

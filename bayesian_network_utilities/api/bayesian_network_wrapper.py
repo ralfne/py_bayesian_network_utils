@@ -1,12 +1,9 @@
 from enum import Enum
 import pandas as pd
-from pomegranate.distributions.ConditionalProbabilityTable import ConditionalProbabilityTable
-from pomegranate.distributions.DiscreteDistribution import DiscreteDistribution
-
+from pomegranate import DiscreteDistribution, ConditionalProbabilityTable
 from bayesian_network_utilities._event_merging.bayesian_network_merger import BayesianNetworkMerger
 from bayesian_network_utilities._event_merging.marginals_parser import MarginalsParser
 import pomegranate as pg
-
 from bayesian_network_utilities.api.bayesian_network_utils import BayesianNetworkUtils
 
 

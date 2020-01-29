@@ -1,5 +1,4 @@
-from pomegranate.distributions.ConditionalProbabilityTable import ConditionalProbabilityTable
-from pomegranate.distributions.DiscreteDistribution import DiscreteDistribution
+from pomegranate import DiscreteDistribution, ConditionalProbabilityTable
 import numpy as np
 
 from _conditional_item import _ConditionalItem
